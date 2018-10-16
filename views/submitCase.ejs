@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>IT Help Desk</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+
+        <link href="/styles.css" rel="stylesheet" />
+        <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+
+        <style>
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: rgb(2, 2, 2);
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+
+            li {
+                float: left;
+            }
+
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+            li a:hover {
+                background-color: rgb(1, 41, 78);
+            }
+            .logout{
+                background-color: rgb(151, 19, 19);
+            }
+
+            .active {
+                background-color: rgb(53, 116, 128);
+            }
+            body{
+                font-family: 'Nunito';
+                opacity: 0.90;
+                background-position: center center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-image: 
+                linear-gradient(
+                rgba(224, 224, 224, 0.616), 
+                rgba(197, 252, 243, 0.678)
+                ),
+                url('https://fieldnation.com/wp-content/uploads/2018/08/180716_BV_FieldNation_004v2.jpg');  
+                
+            }
+
+
+
+            ::placeholder {
+                color: #babbc2;
+                
+            }
+
+            h2{
+                font-size: 25px;
+                padding: 10px 5px;
+                color: #367fa1;    
+            }
+
+            h2.headertekst {
+                text-align: center;
+            }
+
+            h3.headertekst1 {
+                text-align: center;
+            }
+
+            #chat-area{
+                padding-top: 15px;
+                max-width: 1000px ;
+                margin: 30px auto;
+                background-color: #fff7f298;
+
+                box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+                border-radius: 0px;
+            }
+
+            #chat-window{
+                height:  400px ;
+                overflow: auto;
+                background: #f9f9f9;
+
+            }
+
+            #output p{
+                padding: 14px 0px;
+                margin: 0 20px;
+                border-bottom: 1px solid #e9e9e9;
+                color: #555;
+            }
+
+            #feedback p{
+                color: #aaa;
+                padding: 14px 0px;
+                margin: 0 20px;
+            }
+
+            #output strong{
+                color: #195097;
+                text-transform: uppercase;
+            }
+
+            select#soflow {
+                -webkit-appearance: button;
+                border-radius: 2px;
+                box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+                -webkit-padding-end: 20px;
+                -webkit-padding-start: 2px;
+                -webkit-user-select: none;
+                background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+                background-position: 100% center;
+                background-repeat: no-repeat;
+                border: 1px solid #AAA;
+                color: #555;
+                font-size: inherit;
+                margin-left: 20px;
+                overflow: hidden;
+                padding: 5px 15px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 300px;
+            }
+            select#soflow2 {
+                -webkit-appearance: button;
+                border-radius: 2px;
+                box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+                -webkit-padding-end: 20px;
+                -webkit-padding-start: 2px;
+                -webkit-user-select: none;
+                background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+                background-position: 100% center;
+                background-repeat: no-repeat;
+                border: 1px solid #AAA;
+                color: #555;
+                font-size: inherit;
+                margin-left: 20px;
+                overflow: hidden;
+                padding: 5px 15px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 120px;
+            }
+
+            #admin{
+                margin-left: 95%;
+                font-size: 100%;
+                background: #da7828;
+            }
+
+            textarea { 
+                height: auto; 
+                width: 100%;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 15px;
+
+                padding: 10px 20px;
+                box-sizing: border-box;
+                background: #eee;
+                border: 0;
+                display: block;
+                background: #fff;
+                border-bottom: 1px solid #eee;
+
+            }
+
+            textarea::placeholder{
+                color: #babbc2;
+                font-family: Nunito;
+                font-size: 16px;
+            }
+            
+            label{
+                box-sizing: border-box;
+                display: block;
+                padding: 10px 20px;
+            }
+
+            input{
+                padding: 10px 20px;
+                box-sizing: border-box;
+                background: #eee;
+                border: 0;
+                display: block;
+                width: 100%;
+                background: #fff;
+                border-bottom: 1px solid #eee;
+                font-family: Nunito;
+                font-size: 16px;
+            }
+
+            button{
+                background: #0e9bad;
+                color: #fff;
+                font-size: 18px;
+                border: 0;
+                padding: 12px 0;
+                width: 100%;
+                border-radius: 0 0 2px 2px;
+            }
+
+            footer {
+
+                top: px;
+                text-align: center;
+            }
+
+            p1{
+                color: rgb(90, 90, 90);
+                top: 10px;
+            }
+
+            p2{
+                padding-top: 0%;
+                color: #aaa;
+                font-size: 80%;
+            }
+
+            .looping-rhombuses-spinner, .looping-rhombuses-spinner * {
+                box-sizing: border-box;
+            }
+
+            .looping-rhombuses-spinner {
+                width: calc(15px * 4);
+                height: 15px;
+                position: relative;
+                padding-top: 8px;
+                left: 45.5%;
+                
+
+            }
+
+            .looping-rhombuses-spinner .rhombus {
+                height: 15px;
+                width: 15px;
+                background-color: #da7828;
+                left: calc(15px * 4);
+                position: absolute;
+                margin: 0 auto;
+                border-radius: 2px;
+                transform: translateY(0) rotate(45deg) scale(0);
+                animation: looping-rhombuses-spinner-animation 2500ms linear infinite;
+            }
+
+            .looping-rhombuses-spinner .rhombus:nth-child(1) {
+                animation-delay: calc(2500ms * 1 / -1.5);
+            }
+
+            .looping-rhombuses-spinner .rhombus:nth-child(2) {
+                animation-delay: calc(2500ms * 2 / -1.5);
+            }
+
+            .looping-rhombuses-spinner .rhombus:nth-child(3) {
+                animation-delay: calc(2500ms * 3 / -1.5);
+            }
+
+            @keyframes looping-rhombuses-spinner-animation {
+                0% {
+                transform: translateX(0) rotate(45deg) scale(0);
+                }
+                50% {
+                transform: translateX(-233%) rotate(45deg) scale(1);
+                }
+                100% {
+                transform: translateX(-466%) rotate(45deg) scale(0);
+                }
+            }
+
+
+            #animation{
+                position: relative;
+                margin-left: 45.6%;
+            }
+
+            .atom-spinner, .atom-spinner * {
+                box-sizing: border-box;
+            }
+
+            .atom-spinner {
+                height: 60px;
+                width: 60px;
+                overflow: hidden;
+            }
+
+            .atom-spinner .spinner-inner {
+                position: relative;
+                display: block;
+                height: 100%;
+                width: 100%;
+            }
+
+            .atom-spinner .spinner-circle {
+                display: block;
+                position: absolute;
+                color: #f74e00b2;
+                font-size: calc(60px * 0.24);
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .atom-spinner .spinner-line {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                animation-duration: 1s;
+                border-left-width: calc(60px / 25);
+                border-top-width: calc(60px / 25);
+                border-left-color: #40a816;
+                border-left-style: solid;
+                border-top-style: solid;
+                border-top-color: transparent;
+            }
+
+            .atom-spinner .spinner-line:nth-child(1) {
+                animation: atom-spinner-animation-1 1s linear infinite;
+                transform: rotateZ(120deg) rotateX(66deg) rotateZ(0deg);
+            }
+
+            .atom-spinner .spinner-line:nth-child(2) {
+                animation: atom-spinner-animation-2 1s linear infinite;
+                transform: rotateZ(240deg) rotateX(66deg) rotateZ(0deg);
+            }
+
+            .atom-spinner .spinner-line:nth-child(3) {
+                animation: atom-spinner-animation-3 1s linear infinite;
+                transform: rotateZ(360deg) rotateX(66deg) rotateZ(0deg);
+            }
+
+            @keyframes atom-spinner-animation-1 {
+                100% {
+                transform: rotateZ(120deg) rotateX(66deg) rotateZ(360deg);
+                }
+            }
+
+            @keyframes atom-spinner-animation-2 {
+                100% {
+                transform: rotateZ(240deg) rotateX(66deg) rotateZ(360deg);
+                }
+            }
+
+            @keyframes atom-spinner-animation-3 {
+                100% {
+                transform: rotateZ(360deg) rotateX(66deg) rotateZ(360deg);
+                }
+            }
+        </style>
+
+        <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+
+    </head>
+    <body onload="allfunction()">
+            <ul>
+                    <li><a href="/profile">Home</a></li>
+                    <li><a class="active" href="/profile/createcase">New Request</a></li>
+                    <li><a href="/profile/unsolved">Pending</a></li>
+                    <li><a href="/profile/inprogress">In Progress</a></li>
+                    <li><a href="/profile/solved">Solved</a></li>
+                    <% if (user) { %>
+                        <li style="float:right" class="logout"><a href="/auth/logout">Log out</a></li>
+                        <% } else { %>
+                        <li style="float:right"><a href="/auth/login">Login</a></li>
+                        <% } %>
+            </ul>
+  
+        <div id="chat-area">
+            <h2 class="headertekst">Create New Request</h2>
+            <h3 class="headertekst1">Please Submit your request below!</h2>
+            <div id="animation">
+                <div class="atom-spinner">
+                    <div class="spinner-inner">
+                            <div class="spinner-line"></div>
+                            <div class="spinner-line"></div>
+                            <div class="spinner-line"></div>
+                            <!--Chrome renders little circles malformed :(-->
+                            <div class="spinner-circle">&#9679;</div>
+                    </div>
+                </div>
+            </div>
+            
+            <form action="/request" method="post">
+                <div>
+                    <label>Name : <%= user.username %> </label>
+                  <!--<input name="name" id="box1" placeholder="please type your name here">-->
+                </div>
+                <div>
+                    <label>Email : <%= user.useremail %></label>
+                    <!--<input name="email" id="email" placeholder="name@fieldnation.com">-->
+                </div>
+
+                <label>Desciption :</label>
+
+                <div id="request">
+                    <textarea name="request" placeholder="Please describe what you need help with" rows="6"></textarea>
+                </div>
+
+                <div>
+                    <div class="applyTo" style="float:left">
+                    <label>Apply To : </label>
+                        <select name="department" id="soflow">
+                            <option value="Admin department">Admin department</option>
+                            <option value="IT department">IT department</option>
+                        </select>
+                    </div>
+                    <div class="priority" style=" margin-left:50%; ">
+                        <label>Priority</label>
+                        <select name="priority" id="soflow2">
+                                <option value="Normal">Normal</option>
+                                <option value="Urgent">Urgent</option>
+                        </select>
+                    </div>
+
+                </div>
+                
+                <div>
+                    <label>Date</label>
+                    <input name="currentDate" id="demo">
+                </div>
+                <div>
+                    <button>Submit case</button>
+                </div>
+            </form>
+
+        </div>
+
+<!--
+            <div id="admin">
+            <form action="/admin/login/" method="GET">
+                <button>Admin</button>
+            </form>
+            
+        </div>
+
+-->
+        <footer>
+            <p1> &copy; JobaerAhamedRobin (robin_68@live.com) <br></p1>
+        </footer>
+        <script>
+            function allfunction() {
+            document.getElementById('demo').value= Date();
+            document.getElementById('demo').placeholder= Date();
+            }
+        </script>
+    </body>
+</html>

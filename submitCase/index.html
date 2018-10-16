@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>IT Help Desk</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+
+        <link href="/styles.css" rel="stylesheet" />
+        <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+
+        <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+
+    </head>
+    <body onload="allfunction()">
+  
+        <div id="chat-area">
+            <h2 class="headertekst">IT Help Request</h2>
+            <h3 class="headertekst1">Please Submit your request below!</h2>
+            <div id="animation">
+                <div class="atom-spinner">
+                    <div class="spinner-inner">
+                            <div class="spinner-line"></div>
+                            <div class="spinner-line"></div>
+                            <div class="spinner-line"></div>
+                            <!--Chrome renders little circles malformed :(-->
+                            <div class="spinner-circle">&#9679;</div>
+                    </div>
+                </div>
+            </div>
+            
+            <form action="/request" method="post">
+                <div>
+                    <label>Name:</label>
+                    <input name="name" id="box1" placeholder="please type your name here">
+                </div>
+                <div>
+                    <label>Email:</label>
+                    <input name="email" id="email" placeholder="name@fieldnation.com">
+                </div>
+
+                <label>Desciption:</label>
+
+                <div id="request">
+                    
+                    <textarea name="request" placeholder="Please describe what you need hep with" rows="6"></textarea>
+                </div>
+
+                <div>
+                    <label>Department:</label>
+                        <select name="department" id="soflow">
+                            <option value="support">Support</option>
+                            <option value="development">Development</option>
+                            <option value="devops">DevOps</option>
+                            <option value="admin">Admin</option>
+                            <option value="hr">HR</option>
+                            <option value="other">Other</option>
+                        </select>
+                </div>
+
+                <div>
+                    <label  >Date</label>
+                    <input name="currentDate" id="demo">
+                </div>
+                <div>
+                    <button>Send my greetings</button>
+                </div>
+            </form>
+
+        </div>
+
+
+        <div id="admin">
+            <form action="/admin/login/" method="GET">
+                <button>Admin</button>
+            </form>
+            
+        </div>
+        <footer>
+            <p1> &copy; JobaerAhamedRobin (robin_68@live.com) <br></p1>
+        </footer>
+        <script>
+            function allfunction() {
+            document.getElementById('demo').value= Date();
+            document.getElementById('demo').placeholder= Date();
+            }
+        </script>
+    </body>
+</html>

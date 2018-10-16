@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+
+        <title>Homepage</title>
+        <style>
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: rgb(2, 2, 2);
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+
+            li {
+                float: left;
+            }
+
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+            li a:hover {
+                background-color: rgb(1, 41, 78);
+            }
+
+            .active {
+                background-color: rgb(53, 116, 128);
+            }
+            .logout{
+                background-color: rgb(151, 19, 19);
+            }
+
+            main, header{
+                max-width: 80%;
+                margin: 30px auto;
+                padding: 0 10px;
+                color: #333;
+                padding-top: 10px;
+            }
+            main img{
+                width: 40px;
+                margin-right: 10px;
+                position: relative;
+                top: 12px;
+            }
+            main p{
+                display: inline-block;
+            }
+            body{
+                font-family: 'Nunito';
+                opacity: 0.90;
+                background-position: center center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;  
+                background-image: 
+                linear-gradient(
+                rgba(224, 224, 224, 0.616), 
+                rgba(197, 252, 243, 0.678)
+                ),
+                url('../img/bimage3.jpg');                
+            }
+
+            ::placeholder {
+                color: #babbc2;
+                
+            }
+
+            h2{
+                font-size: 25px;
+                padding: 10px 20px;
+                color: #367fa1;
+                
+            }
+            select#soflow {
+                -webkit-appearance: button;
+                border-radius: 2px;
+                box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+                -webkit-padding-end: 20px;
+                -webkit-padding-start: 2px;
+                -webkit-user-select: none;
+                background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+                background-position: 100% center;
+                background-repeat: no-repeat;
+                border: 1px solid #AAA;
+                color: #555;
+                font-size: inherit;
+                margin-left: 20px;
+                overflow: hidden;
+                padding: 5px 15px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 300px;
+            }
+
+            h2.headertekst {
+                text-align: center;
+            }
+
+            h3.headertekst1 {
+                text-align: center;
+            }
+
+
+            .req-cards{
+                border: 2px solid #ddd;
+                border-left: 0px;
+                border-right: 0px;
+                margin-top: 10px;
+            }
+            #req-cases{
+                padding-bottom: 5px;
+                padding-top: 5px;
+            }
+
+            #req-details{
+                border: 1px solid #ddd;
+                border-left: 0px;
+                border-right: 0px;
+                padding-left: 5px;
+                overflow-y: auto;
+                overflow-x: auto;
+                background-color: #fdfdfdc5;
+                padding-bottom: 10px;
+                padding-top: 8px;
+
+            }
+
+            #admin-action{
+                border-left: 0px;
+                border-right: 0px;
+                padding-left: 5px;
+                padding-bottom: 5px;
+                background-color: #effafac5;
+            }
+            #admin-apply{
+                margin-left: 95%;
+                font-size: 100%;
+                background: #da7828;
+            }
+            #chat-area{
+                max-width: 90%;
+                margin: 30px auto;
+                border: 3px solid #ddd;
+                box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+                border-radius: 2px;
+            }
+
+            #chat-window{
+                height:  400px ;
+                overflow: auto;
+                background: #f9f9f9;
+            }
+
+            #output p{
+                padding: 14px 0px;
+                margin: 0 20px;
+                border-bottom: 1px solid #e9e9e9;
+                color: #555;
+            }
+
+            #feedback p{
+                color: #aaa;
+                padding: 14px 0px;
+                margin: 0 20px;
+            }
+
+            #output strong{
+                color: #195097;
+                text-transform: uppercase;
+            }
+
+            label{
+                box-sizing: border-box;
+                display: block;
+                padding: 10px 20px;
+            }
+
+            input{
+                padding: 10px 20px;
+                box-sizing: border-box;
+                background: #eee;
+                border: 0;
+                display: block;
+                width: 100%;
+                background: #fff;
+                border-bottom: 1px solid #eee;
+                font-family: Nunito;
+                font-size: 16px;
+            }
+
+            button{
+                background: #0e9bad;
+                color: #fff;
+                font-size: 18px;
+                border: 0;
+                padding: 12px 0;
+                width: 100%;
+                border-radius: 0 0 2px 2px;
+            }
+
+            header{
+                text-align: center;
+            }
+
+            footer {
+
+                top: px;
+                text-align: center;
+            }
+
+            p1{
+                color: rgb(90, 90, 90);
+                top: 10px;
+            }
+
+            p2{
+                padding-top: 0%;
+                color: #aaa;
+                font-size: 80%;
+            }
+
+            .looping-rhombuses-spinner, .looping-rhombuses-spinner * {
+                box-sizing: border-box;
+            }
+
+            .looping-rhombuses-spinner {
+                width: calc(15px * 4);
+                height: 15px;
+                position: relative;
+                padding-top: 8px;
+                left: 45.5%;
+                
+
+            }
+
+            .looping-rhombuses-spinner .rhombus {
+                height: 15px;
+                width: 15px;
+                background-color: #0a3b7a;
+                left: calc(15px * 4);
+                position: absolute;
+                margin: 0 auto;
+                border-radius: 2px;
+                transform: translateY(0) rotate(45deg) scale(0);
+                animation: looping-rhombuses-spinner-animation 2500ms linear infinite;
+            }
+
+            .looping-rhombuses-spinner .rhombus:nth-child(1) {
+                animation-delay: calc(2500ms * 1 / -1.5);
+            }
+
+            .looping-rhombuses-spinner .rhombus:nth-child(2) {
+                animation-delay: calc(2500ms * 2 / -1.5);
+            }
+
+            .looping-rhombuses-spinner .rhombus:nth-child(3) {
+                animation-delay: calc(2500ms * 3 / -1.5);
+            }
+
+            @keyframes looping-rhombuses-spinner-animation {
+                0% {
+                transform: translateX(0) rotate(45deg) scale(0);
+                }
+                50% {
+                transform: translateX(-233%) rotate(45deg) scale(1);
+                }
+                100% {
+                transform: translateX(-466%) rotate(45deg) scale(0);
+                }
+            }
+
+        </style>
+    </head>
+    <body>
+            <% var count = 0 ; %>
+            <% for(var x = 0; x < cases.length; x ++) { %>            
+                <% if(cases[x].requester == user.username){ %>
+                    <% if(cases[x].caseStatus == 'resolved'){ %>              
+                        <% count = ++count %>
+                        <% } %>
+                     <% } else {%>
+                <% } %>
+            <% } %>
+        <ul>
+            <li><a href="/profile">Home</a></li>
+            <li><a href="/profile/createcase">New Request</a></li>
+            <li><a href="/profile/unsolved">Pending</a></li>
+            <li><a href="/profile/inprogress">In Progress</a></li>
+            <li><a class="active" href="/profile/solved">Solved [ <%= count %> ]</a></li>
+            <% if (user) { %>
+                <li style="float:right" class="logout"><a href="/auth/logout">Log out</a></li>
+                <% } else { %>
+                <li style="float:right"><a href="/auth/login">Login</a></li>
+                <% } %>
+        </ul>
+        <header>
+            <h1>Welcome to your profile, <%= user.username %></h1>
+        </header>
+        <main>
+
+
+                <div class="req-cards">
+                    <% for(var i=0; i<cases.length; i++) { %>                
+                        <% if(cases[i].requester == user.username){ %>
+                            <% if(cases[i].caseStatus == 'resolved'){ %>
+                                <div id="req-details">
+                                    <div> <strong>Case ID: <%= cases[i].caseID %> </strong> </div>
+                                    <div> Name: <%= cases[i].requester %></div>
+                                    <div> Email: <%= cases[i].requesterEmail %></div>
+                                    <div> Department: <%= cases[i].department %></div>
+                                    <div> Date: <%= cases[i].caseCreated %></div>
+                                    <div> Description: <%= cases[i].caseDescription %></div>
+                                    <div>Feedback: <%= cases[i].feedback %> </div>
+                                    <div>Priority: <%= cases[i].priority %> </div>
+                                    <div>Status: <%= cases[i].caseStatus %> | Assigned to: <strong> <%= cases[i].appliedTo %> </strong> | <%= cases[i].assignedTo %> </div>
+                                </div>
+                                <div id="admin-action">
+                                    <form action="/updatecase" method="POST">
+                                        <div style=" float:left; padding-top: 5px;">
+                                            
+                                            <input type="hidden" name="assignedTo" value="<%= cases[i].assignedTo %>">
+                                            <input type="hidden" name="useremail" value="<%= cases[i].requesterEmail %>">
+                                            <input type="hidden" name="caseid" value="<%= cases[i].caseID %>">
+                                            <input type="hidden" name="username" value="<%= cases[i].requester %>">
+                                            <input type="hidden" name="department" value="<%= cases[i].appliedTo %>">
+                                            <input type="hidden" name="request" value="<%= cases[i].caseDescription %>">
+                                            <input type="hidden" name="currentDate" value="<%= cases[i].caseCreated %>">
+                                            
+                                            <select name="status" id="soflow">
+                                                    <option value="<%= cases[i].caseStatus %>">Status: <%= cases[i].caseStatus %></option> 
+                                                    <option value="pending">Status: Mark Pending</option>                                                    
+                                            </select>
+                                            <textarea name="feedback" placeholder="Please describe what you need help with" rows="1" cols="100"><%= cases[i].feedback%></textarea>
+                                        </div>         
+                                        <div id="admin-apply" >
+                                            <button>apply</button>                                                    
+                                        </div>
+                                    </form> 
+                                </div>
+                                <% } %>
+                            <% } else {%>
+                        <% } %>                
+                    <% } %>                
+                </div>
+        </main>
+    </body>
+</html>
